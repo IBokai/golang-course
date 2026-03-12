@@ -25,11 +25,11 @@ go build
 ## Usage examples
 
 ```bash
-# URL with https
-./clitool https://github.com/suvorovrain/golang-course
+# URL with http
+./clitool http://github.com/suvorovrain/golang-course
 
 # URL with https
-./clitool http://github.com/suvorovrain/golang-course
+./clitool https://github.com/suvorovrain/golang-course
 
 # URL with .git
 ./clitool https://github.com/suvorovrain/golang-course.git
