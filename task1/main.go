@@ -62,10 +62,14 @@ func GetRepositoryInfo(apiEndpointPath string) (*RepositoryInfo, error) {
 		return nil, fmt.Errorf("network error:\n%w", err)
 	}
 	defer func() {
-		err := resp.Body.Close()
-		fmt.Println("Warning: failed to close response body", err)
+		if err := resp.Body.Close(); err != nil {
+			fmt.Println("Warning: failed to close response body", err)
+		}
 	}()
 	if resp.StatusCode != http.StatusOK {
+		if resp.StatusCode == http.StatusNotFound {
+			return nil, fmt.Errorf("Repository was not found")
+		}
 		return nil, fmt.Errorf("api error:\n%s", resp.Status)
 	}
 
