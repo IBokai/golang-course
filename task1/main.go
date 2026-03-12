@@ -11,6 +11,9 @@ import (
 )
 
 type RepositoryInfo struct {
+	Owner struct {
+		Login string `json:"login"`
+	}
 	Name            string    `json:"name"`
 	Description     string    `json:"description"`
 	StargazersCount int       `json:"stargazers_count"`
@@ -19,11 +22,14 @@ type RepositoryInfo struct {
 }
 
 func (r RepositoryInfo) String() string {
-	return fmt.Sprintf("Repository %s:\n"+
-		"Description: %s\n"+
-		"Stars: %d\n"+
-		"Forks: %d\n"+
-		"Created at: %s\n",
+	return fmt.Sprintf("Repository information:\n"+
+		"  -Owner: %s\n"+
+		"  -Name: %s\n"+
+		"  -Description: %s\n"+
+		"  -Stars: %d\n"+
+		"  -Forks: %d\n"+
+		"  -Created at: %s\n",
+		r.Owner.Login,
 		r.Name,
 		r.Description,
 		r.StargazersCount,
@@ -68,7 +74,7 @@ func GetRepositoryInfo(apiEndpointPath string) (*RepositoryInfo, error) {
 	}()
 	if resp.StatusCode != http.StatusOK {
 		if resp.StatusCode == http.StatusNotFound {
-			return nil, fmt.Errorf("Repository was not found")
+			return nil, fmt.Errorf("repository was not found")
 		}
 		return nil, fmt.Errorf("api error:\n%s", resp.Status)
 	}
