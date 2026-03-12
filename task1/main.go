@@ -61,22 +61,25 @@ func GetRepositoryInfo(apiEndpointPath string) (*RepositoryInfo, error) {
 	if err != nil {
 		return nil, fmt.Errorf("network error:\n%w", err)
 	}
-	resp.Body.Close()
+	defer func() {
+		err := resp.Body.Close()
+		fmt.Println("Warning: failed to close response body", err)
+	}()
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("api error:\n%s", resp.Status)
 	}
 
-	var repoinfo RepositoryInfo
-	err = json.NewDecoder(resp.Body).Decode(&repoinfo)
+	var repositoryInfo RepositoryInfo
+	err = json.NewDecoder(resp.Body).Decode(&repositoryInfo)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode json:\n%w", err)
 	}
-	return &repoinfo, nil
+	return &repositoryInfo, nil
 }
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Printf("Invalid input arguments\nUsage: %s <github-url-or-repo/owner>\n", os.Args[0])
+		fmt.Printf("invalid input arguments\nUsage: %s <github-url-or-repo/owner>\n", os.Args[0])
 		return
 	}
 	repositoryPath, err := ParseInput(os.Args[1])
