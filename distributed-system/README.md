@@ -16,6 +16,8 @@ cd distributed-system
 ```bash
 # Run docker container
 make docker-up
+# Now the server can accept http requests on localhost:8080/repos/owner/name
+# You can test it via "curl" or Swagger described in 4)
 ```
 4) Open Swagger UI in browser:
 `http://localhost:8080/swagger/index.html`
