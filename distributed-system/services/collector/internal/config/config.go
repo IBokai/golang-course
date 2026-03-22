@@ -27,4 +27,3 @@ func Load() (*Config, error) {
 		GRPCAddr: grpcAddr,
 	}, nil
 }
-
