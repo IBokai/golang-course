@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "distributed-system/api/gen;collector";
+
+package collector;
+
+message RepositoryRequest {
+    string owner = 1;
+    string repository_name = 2;
+}
+
+message RepositoryOwner {
+    string name = 1;
+}
+
+message RepositoryResponse {
+    RepositoryOwner owner = 1;
+    string name = 2;
+    string description = 3;
+    int32 stargazers_count = 4;
+    int32 forks_count = 5;
+    google.protobuf.Timestamp creation_date = 6;
+}
+
+service RepositoryService {
+    rpc GetRepositoryInformation (RepositoryRequest) returns (RepositoryResponse);
+}
