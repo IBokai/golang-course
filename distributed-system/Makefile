@@ -14,8 +14,8 @@ run-gateway:
 docker-up:
 	docker-compose up --build\
 
-swagger:
-	cd services/gateway && swag init -g cmd/main.go -o docs
-
 docker-down:
 	docker-compose down
+
+swagger:
+	cd services/gateway && swag init -g cmd/main.go -o docs

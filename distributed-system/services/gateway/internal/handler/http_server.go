@@ -35,7 +35,10 @@ func (h *HTTPHandler) GetRepositoryInformation(w http.ResponseWriter, r *http.Re
 		mapError(w, err)
 		return
 	}
-	json.NewEncoder(w).Encode(repo)
+	if err := json.NewEncoder(w).Encode(repo); err != nil {
+		mapError(w, err)
+		return
+	}
 }
 
 func mapError(w http.ResponseWriter, err error) {
