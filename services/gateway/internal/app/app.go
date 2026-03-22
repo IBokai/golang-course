@@ -2,10 +2,12 @@ package app
 
 import (
 	collectorpb "distributed-system/api/gen"
+	_ "distributed-system/services/gateway/docs"
 	"distributed-system/services/gateway/internal/adapter"
 	"distributed-system/services/gateway/internal/config"
 	"distributed-system/services/gateway/internal/handler"
 	"distributed-system/services/gateway/internal/usecase"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"log"
 	"net/http"
 
@@ -30,6 +32,7 @@ func New(cfg *config.Config) *App {
 	handler := handler.New(uc)
 
 	mux := http.NewServeMux()
+	mux.Handle("/swagger/", httpSwagger.WrapHandler)
 	mux.HandleFunc("GET /repos/{owner}/{name}", handler.GetRepositoryInformation)
 
 	return &App{

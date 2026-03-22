@@ -16,6 +16,17 @@ func New(uc *usecase.RepositoryUseCase) *HTTPHandler {
 	return &HTTPHandler{uc: uc}
 }
 
+// GetRepositoryInforamtion godoc
+// @Summary Get information about a repository
+// @Description Returns information about a GitHub repository
+// @Tags repository
+// @Produce json
+// @Param owner path string true "Repository owner"
+// @Param name path string true "Repository name"
+// @Success 200 {object} domain.RepositoryInfo
+// @Failure 404 {object} string
+// @Failure 500 {object} string
+// @Router /repos/{owner}/{name} [get]
 func (h *HTTPHandler) GetRepositoryInformation(w http.ResponseWriter, r *http.Request) {
 	owner := r.PathValue("owner")
 	name := r.PathValue("name")
