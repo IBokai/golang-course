@@ -24,13 +24,7 @@ func Load() (*Config, error) {
 		return nil, errors.New("GRPC_ADDR is required")
 	}
 	return &Config{
-		GRPCAddr: getEnv("GRPC_ADDR", ":50051"),
+		GRPCAddr: grpcAddr,
 	}, nil
 }
 
-func getEnv(key, defaultValue string) string {
-	if val := os.Getenv(key); val != "" {
-		return val
-	}
-	return defaultValue
-}
