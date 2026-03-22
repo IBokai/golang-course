@@ -1,4 +1,4 @@
-.PHONY: proto, run-collector, run-gateway, docker-up, docker-down
+.PHONY: proto, run-collector, run-gateway, docker-up, docker-down, swagger
 
 proto:
 	protoc --proto_path=api/proto \
@@ -12,7 +12,10 @@ run-gateway:
 	go run services/gateway/cmd/main.go
 
 docker-up:
-	docker-compose up --build
+	docker-compose up --build\
+
+swagger:
+	cd services/gateway && swag init -g cmd/main.go -o docs
 
 docker-down:
 	docker-compose down
