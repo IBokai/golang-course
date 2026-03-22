@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        directory: [task1]
+        directory: [cli-tool]
     defaults:
       run:
         working-directory: ${{matrix.directory}}
