@@ -3,7 +3,7 @@ name: ci
 on: [push, pull_request]
 
 jobs:
-  build-and-lint:
+  build-and-lint-cli:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,3 +37,37 @@ jobs:
         with:
           version: latest
           working-directory: ${{matrix.directory}}
+  build-and-lint-distributed-system:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        directory: [services/collector, services/gateway]
+    defaults:
+      run:
+        working-directory: distributed-system
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache: false
+
+      - name: Build
+        run: go build ./${{matrix.directory}}/...
+
+      - name: Run gofmt
+        run: |
+          if [ -n "$(gofmt -l ${{matrix.directory}})" ]; then
+            echo "Files that need to be formatted:"
+            gofmt -l ${{matrix.directory}}
+            exit 1
+          fi
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: latest
+          working-directory: distributed-system/${{matrix.directory}}
