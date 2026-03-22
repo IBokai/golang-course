@@ -1,0 +1,62 @@
+basePath: /
+definitions:
+  domain.Owner:
+    properties:
+      login:
+        type: string
+    type: object
+  domain.RepositoryInfo:
+    properties:
+      creationDate:
+        type: string
+      description:
+        type: string
+      forksCount:
+        type: integer
+      name:
+        type: string
+      owner:
+        $ref: '#/definitions/domain.Owner'
+      stargazersCount:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Getting information about a GitHub repository
+  title: Repository Info API
+  version: "1.0"
+paths:
+  /repos/{owner}/{name}:
+    get:
+      description: Returns information about a GitHub repository
+      parameters:
+      - description: Repository owner
+        in: path
+        name: owner
+        required: true
+        type: string
+      - description: Repository name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.RepositoryInfo'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get information about a repository
+      tags:
+      - repository
+swagger: "2.0"
