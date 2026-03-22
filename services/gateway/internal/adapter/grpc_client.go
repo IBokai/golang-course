@@ -2,7 +2,7 @@ package adapter
 
 import (
 	"context"
-	 collectorpb "distributed-system/api/gen"
+	collectorpb "distributed-system/api/gen"
 	"distributed-system/services/gateway/internal/domain"
 	"errors"
 
