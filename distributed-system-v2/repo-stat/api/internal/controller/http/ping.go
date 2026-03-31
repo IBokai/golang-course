@@ -10,14 +10,15 @@ import (
 
 func NewPingHandler(log *slog.Logger, ping *usecase.Ping) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		status := ping.Execute(r.Context())
-
-		response := dto.PingResponse{
-			Reply: string(status),
-		}
+		status, services := ping.Execute(r.Context())
 
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
+		response := dto.NewPingResponse(status, services)
+		if status == "ok" {
+			w.WriteHeader(http.StatusOK)
+		} else {
+			w.WriteHeader(http.StatusServiceUnavailable)
+		}
 
 		if err := json.NewEncoder(w).Encode(response); err != nil {
 			log.Error("failed to write ping response", "error", err)
