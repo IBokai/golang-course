@@ -14,7 +14,7 @@ import (
 
 type App struct {
 	server *grpc.Server
-	lis net.Listener
+	lis    net.Listener
 }
 
 func New(cfg *config.Config) *App {

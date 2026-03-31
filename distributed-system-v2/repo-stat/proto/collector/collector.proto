@@ -11,7 +11,9 @@ message RepositoryRequest {
   string repository_name = 2;
 }
 
-message RepositoryOwner { string name = 1; }
+message RepositoryOwner { 
+  string name = 1; 
+}
 
 message RepositoryResponse {
   RepositoryOwner owner = 1;
