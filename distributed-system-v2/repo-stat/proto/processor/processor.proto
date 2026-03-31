@@ -1,37 +1,34 @@
 syntax = "proto3";
 
+package collector;
+
 import "google/protobuf/timestamp.proto";
 
 option go_package = "distributed-system-v2/proto/processor;processor";
 
 package processor;
 
-message PingRequest{ 
-}
+message PingRequest {}
 
-message PingResponse{
-    string reply = 1;
-}
+message PingResponse { string reply = 1; }
 
 message RepositoryRequest {
-    string owner = 1;
-    string repository_name = 2;
+  string owner = 1;
+  string repository_name = 2;
 }
 
-message RepositoryOwner {
-    string name = 1;
-}
+message RepositoryOwner { string name = 1; }
 
 message RepositoryResponse {
-    RepositoryOwner owner = 1;
-    string name = 2;
-    string description = 3;
-    int32 stargazers_count = 4;
-    int32 forks_count = 5;
-    google.protobuf.Timestamp creation_date = 6;
+  RepositoryOwner owner = 1;
+  string name = 2;
+  string description = 3;
+  int32 stargazers_count = 4;
+  int32 forks_count = 5;
+  google.protobuf.Timestamp creation_date = 6;
 }
 
 service ProcessorService {
-    rpc GetRepositoryInformation (RepositoryRequest) returns (RepositoryResponse);
-    rpc Ping (PingRequest) returns (PingResponse);
+  rpc GetRepositoryInformation(RepositoryRequest) returns (RepositoryResponse);
+  rpc Ping(PingRequest) returns (PingResponse);
 }
