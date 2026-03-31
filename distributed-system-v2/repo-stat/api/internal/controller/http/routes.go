@@ -1,11 +1,13 @@
 package http
 
 import (
-	httpSwagger "github.com/swaggo/http-swagger"
 	"log/slog"
 	"net/http"
+
 	_ "repo-stat/api/docs"
 	"repo-stat/api/internal/usecase"
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func AddRoutes(mux *http.ServeMux, log *slog.Logger, ping *usecase.Ping, repository *usecase.RepositoryUseCase) {
