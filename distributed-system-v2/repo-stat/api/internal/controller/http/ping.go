@@ -8,6 +8,13 @@ import (
 	"repo-stat/api/internal/usecase"
 )
 
+// @Summary ping services status
+// @Description Check status of processor and subscriber
+// @Tags ping
+// @Produce json
+// @Success 200 {object} dto.PingResponse
+// @Failure 503 {object} dto.PingResponse
+// @Router /api/ping [get]
 func NewPingHandler(log *slog.Logger, ping *usecase.Ping) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		status, services := ping.Execute(r.Context())
