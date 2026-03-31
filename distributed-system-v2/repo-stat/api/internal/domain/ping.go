@@ -8,6 +8,6 @@ const (
 )
 
 type ServiceInfo struct {
-	Name string
+	Name   string
 	Status PingStatus
 }

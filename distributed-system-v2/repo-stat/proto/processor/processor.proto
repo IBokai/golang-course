@@ -6,16 +6,21 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "distributed-system-v2/proto/processor;processor";
 
-message PingRequest {}
+message PingRequest {
+}
 
-message PingResponse { string reply = 1; }
+message PingResponse { 
+  string reply = 1; 
+}
 
 message RepositoryRequest {
   string owner = 1;
   string repository_name = 2;
 }
 
-message RepositoryOwner { string name = 1; }
+message RepositoryOwner { 
+  string name = 1; 
+}
 
 message RepositoryResponse {
   RepositoryOwner owner = 1;

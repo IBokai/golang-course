@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-
 type Owner struct {
 	Login string
 }
