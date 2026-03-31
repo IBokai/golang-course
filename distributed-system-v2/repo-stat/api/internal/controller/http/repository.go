@@ -10,6 +10,15 @@ import (
 	"strings"
 )
 
+// @Summary Get repository info
+// @Description Get GitHub repository information by URL
+// @Tags repositories
+// @Param url query string true "GitHub repository URL"
+// @Produce json
+// @Success 200 {object} domain.RepositoryInfo
+// @Failure 400 {string} string
+// @Failure 404 {string} string
+// @Router /api/repositories/info [get]
 func NewRepositoryHandler(uc *usecase.RepositoryUseCase) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		rawURL := r.URL.Query().Get("url")

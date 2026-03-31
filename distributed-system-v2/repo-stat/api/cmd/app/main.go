@@ -1,3 +1,8 @@
+// @title Distributed System API
+// @version 2.0
+// @decription API Gateway for distributed system
+// @host localhost:28080
+// @BasePath /
 package main
 
 import (

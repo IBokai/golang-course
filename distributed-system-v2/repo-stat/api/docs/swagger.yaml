@@ -1,0 +1,89 @@
+basePath: /
+definitions:
+  domain.Owner:
+    properties:
+      login:
+        type: string
+    type: object
+  domain.RepositoryInfo:
+    properties:
+      creationDate:
+        type: string
+      description:
+        type: string
+      forksCount:
+        type: integer
+      name:
+        type: string
+      owner:
+        $ref: '#/definitions/domain.Owner'
+      stargazersCount:
+        type: integer
+    type: object
+  dto.PingResponse:
+    properties:
+      services:
+        items:
+          $ref: '#/definitions/dto.ServiceDTO'
+        type: array
+      status:
+        type: string
+    type: object
+  dto.ServiceDTO:
+    properties:
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:28080
+info:
+  contact: {}
+  title: Distributed System API
+  version: "2.0"
+paths:
+  /api/ping:
+    get:
+      description: Check status of processor and subscriber
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PingResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/dto.PingResponse'
+      summary: ping services status
+      tags:
+      - ping
+  /api/repositories/info:
+    get:
+      description: Get GitHub repository information by URL
+      parameters:
+      - description: GitHub repository URL
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.RepositoryInfo'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Get repository info
+      tags:
+      - repositories
+swagger: "2.0"
